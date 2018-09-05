@@ -185,7 +185,7 @@ def queryUsersProfilesThatPostedTheTweets(twitter, input_list_of_queried_tweets)
 			new_user = twitter.show_user(user_id=user)
 		except : 
 			print("already got " +str(len(new_users)) + " but going to sleep")
-			time.sleep(15*60)
+			time.sleep(15*60+30)
 			try: 
 				new_user = twitter.show_user(user_id=user)
 			except :
@@ -210,18 +210,18 @@ def insertTweets(conn,c, tweets): #put the tweet in the tweet table, update the 
 	created_at=ca
 	t=tweets
 	count = 0
+	n=100
 	while(len(t)>0):
 		count +=1 
-		# print("at batch ", count)
-		tweets=t[0:20]
-		created_at=ca[0:20]
+		tweets=t[0:n]
+		created_at=ca[0:n]
 		tweetstring=""
 		htstring=""
 		umstring=""
 		urlstring=""
 		vals=""
-		t=t[20:max(20,len(t))]
-		ca=ca[20:max(20,len(ca))]
+		t=t[n:max(n,len(t))]
+		ca=ca[n:max(n,len(ca))]
 		for i in range(len(tweets)):
 			tweet=tweets[i]
 			tweetstring+='('
@@ -392,18 +392,19 @@ def insertTweetsHydrated(conn,c, tweets): #put the tweet in the tweet table, upd
 	created_at=ca
 	t=tweets
 	count = 0
+	n=100
 	while(len(t)>0):
 		count +=1 
 		# print("at batch ", count)
-		tweets=t[0:100]
-		created_at=ca[0:100]
+		tweets=t[0:n]
+		created_at=ca[0:n]
 		tweetstring=""
 		htstring=""
 		umstring=""
 		urlstring=""
 		vals=""
-		t=t[100:max(100,len(t))]
-		ca=ca[100:max(100,len(ca))]
+		t=t[n:max(n,len(t))]
+		ca=ca[n:max(n,len(ca))]
 		for i in range(len(tweets)):
 			tweet=tweets[i]
 			tweetstring+='('
@@ -562,11 +563,12 @@ def insertUserProfiles(c,conn,users,obtained_date,access_date): #Insert a collec
 	#First make string of values to insert.
 	ca=[datetime.strptime(i['created_at'].replace('+0000','UTC'),'%a %b %d %H:%M:%S %Z %Y') for i in users]
 	u=users
+	n=100
 	while(len(u)>0):
-		users=u[0:100]
-		u=u[100:max(100,len(u))]
-		created_at=ca[0:100]
-		ca=ca[100:max(100,len(ca))]
+		users=u[0:n]
+		u=u[n:max(n,len(u))]
+		created_at=ca[0:n]
+		ca=ca[n:max(n,len(ca))]
 		profilestring=""
 		for i in range(len(users)):
 				user=users[i]
