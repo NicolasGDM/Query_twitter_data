@@ -13,7 +13,7 @@ import string
 import json
 
 
-with open('credentials2.py') as f:
+with open('twitter_credentials.py') as f:
     lines = f.read().splitlines()
 
 consumer_key = lines[0]
