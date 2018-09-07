@@ -87,7 +87,7 @@ elif(mode == 'users'):
 		print('Done querying user ', user)
 	
 	print('Done querying timelines')
-	new_users = queryUsersProfiles(target_users)
+	new_users = queryUsersProfiles(twitter, target_users)
 
 ############################################################
 ####################### Insert In dabtabase ################
