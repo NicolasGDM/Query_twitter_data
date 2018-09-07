@@ -156,11 +156,10 @@ def queryUsersProfiles(twitter, input_list_users_ids):
 	new_users = []
 
 	unique_ids = np.unique(input_list_users_ids)
-
 	for user in unique_ids : 
 		try: 
-			new_user = twitter.show_user(user_id=user)
-		except : 
+			new_user = twitter.show_user(user_id=str(user))
+		except TwythonRateLimitError : 
 			print("Too many requests, go sleep for a while")
 			time.sleep(15*60)
 			try: 
@@ -170,7 +169,6 @@ def queryUsersProfiles(twitter, input_list_users_ids):
 		new_users.append(new_user)
 
 	return new_users;
-
 
 
 def queryUsersProfilesThatPostedTheTweets(twitter, input_list_of_queried_tweets):
