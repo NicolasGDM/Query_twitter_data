@@ -39,4 +39,10 @@ This process will create a .json file stream_hashtagName.json. When this file st
 
 
 
-
+######## 2) Searching - search.py 
+- Open a terminal, go to working folder (the one where the script is)
+- Type the following command : 
+  
+  python search.py credentials.py hashtags database_name target_hashtag 
+  
+  This will create a folder of the same name as the database, create a database, query the data, and insert it into the database.
