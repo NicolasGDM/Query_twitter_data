@@ -30,7 +30,7 @@ mkdir the/directory/you/want/the/json/files/to/be/stored
 (for eg the same name as the hashtag you are querying)
 
 - Type the following command : 
-python stream.py -d the/directory/you/want/the/json/files/to/be/stored  -q hashtag
+python      stream.py .     -d the/directory/you/want/the/json/files/to/be/stored       -q target_hashtag
 
 - Do not close laptop. On MAC you can do Ctrl+Shift+Power Button to put screen off but keep process going.
 
@@ -43,6 +43,10 @@ This process will create a .json file stream_hashtagName.json. When this file st
 - Open a terminal, go to working folder (the one where the script is)
 - Type the following command : 
   
-  python search.py credentials.py hashtags database_name target_hashtag 
+  python      search.py      credentials.py      hashtags      database_name     target_hashtag 
   
   This will create a folder of the same name as the database, create a database, query the data, and insert it into the database.
+  
+ If you want to query multiple hashtags with the same credentials file, run :
+ 
+   python      search.py      credentials.py      hashtags      database_name     target_hashtag1        target_hashtag1    target_hashtag3
