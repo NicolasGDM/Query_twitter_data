@@ -25,8 +25,8 @@ For 2) the insert is done at the end of each query, but you need to schedule the
 ######## 1) Streaming - stream.py 
 - Open a terminal, go to working folder (the one where the script is)
 - Type command :
-![alt text]
-(https://github.com/NicolasGDM/Query_twitter_data/blob/master/miscellaneous/create_dir.png)
+
+![alt text](https://github.com/NicolasGDM/Query_twitter_data/blob/master/miscellaneous/create_dir.png)
 
 (for eg the same name as the hashtag you are querying)
 
