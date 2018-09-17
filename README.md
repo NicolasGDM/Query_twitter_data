@@ -28,12 +28,19 @@ For 2) the insert is done at the end of each query, but you need to schedule the
 
 ![alt text](https://github.com/NicolasGDM/Query_twitter_data/blob/master/miscellaneous/create_dir.png)
 
-(for eg the same name as the hashtag you are querying)
+(for eg the same name as the hashtag you are querying). Warning : DO NOT go in that new folder. At all times make sure where you are by typing pwd, you should be in the parent folder of the one just created.
 
 - Type the following command : 
 
 ![alt text](https://github.com/NicolasGDM/Query_twitter_data/blob/master/miscellaneous/stream_command_line.png)
 
+In more details:
+
+    * python is the name of the program that will run the script you put after (can be python3, python2... usually python works by default if you have only one python version installed)
+    * stream.py (first argument) is the name of the file you want to run
+    * -d folder_name (second argument) is the name of the folder you just created and want to store data in (json files)
+    * -q target_hashtag (third argument) is the name of the hashtag you want to stream
+    
 - Do not close laptop. On MAC you can do Ctrl+Shift+Power Button to put screen off but keep process going.
 
 
@@ -48,8 +55,10 @@ This process will create a .json file stream_hashtagName.json. When this file st
 ![alt text](https://github.com/NicolasGDM/Query_twitter_data/blob/master/miscellaneous/search_command_line.png)
 
 In more details:
-  
-    * credentials.py is the name of the file in which you put your credentials
+
+    * python is the name of the program that will run the script you put after (can be python3, python2... usually python works by default if you have only one python version installed)
+    * search.py (first argument) is the name of the file you want to run
+    * credentials.py (second argument) is the name of the file in which you put your credentials
     * hashtags (third argument) is the mode (either hashtags to query tweets that contains hashtags, or users to query tweets used by a set of users)
     * database_name  (fourth arugment) is the name you picked for the folder (same as database)
     * target_hashtag is the hasthag you want to query
