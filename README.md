@@ -46,7 +46,12 @@ This process will create a .json file stream_hashtagName.json. When this file st
 - Type the following command : 
   
 ![alt text](https://github.com/NicolasGDM/Query_twitter_data/blob/master/miscellaneous/search_command_line.png)
-  
+  In more details:
+    - credentials.py is the name of the file in which you put your credentials
+    - hashtags (third argument) is the mode (either hashtags to query tweets that contains hashtags, or users to query tweets used by a set of users)
+    - database_name  (fourth arugment) is the name you picked for the folder (same as database)
+    - target_hashtag is the hasthag you want to query
+    
   This will create a folder of the same name as the database, create a database, query the data, and insert it into the database.
   
  If you want to query multiple hashtags with the same credentials file, run :
