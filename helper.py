@@ -120,7 +120,6 @@ def getTweetsByHashtag(twitter, query, start_date, end_date, earliestTweet, late
 
 		try :
 			results = twitter.search(q=query, count=100, since_id=notBefore, max_id=cursor, result_type='recent', include_entities=True)
-			tweets += results['statuses']
 			if('statuses' in results and len(results['statuses'])>0):
 				cursor = sorted([i['id'] for i in results['statuses']])[0]-1
 				tweets += results['statuses']
@@ -135,7 +134,6 @@ def getTweetsByHashtag(twitter, query, start_date, end_date, earliestTweet, late
 			time.sleep(15*60+30)
 			try :
 				results = twitter.search(q=query, count=100, since_id=notBefore , max_id=cursor,  result_type='recent', include_entities=True)
-				tweets += results['statuses']
 				if('statuses' in results and len(results['statuses'])>0):
 					cursor = sorted([i['id'] for i in results['statuses']])[0]-1
 					tweets += results['statuses']
