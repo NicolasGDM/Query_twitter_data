@@ -150,6 +150,41 @@ def getTweetsByHashtag(twitter, query, start_date, end_date, earliestTweet, late
 
 	return tweets
 
+##this below method should be faster than the queryUsersProfiles + insert profiles action
+def queryAndInsertUsersProfiles(twitter, c, conn, today, input_list_users_ids):
+	
+	new_users = []
+
+	unique_ids = np.unique(input_list_users_ids)
+	users= [int(i) for i in unique_ids]
+	number_batch = int(len(users)/100)
+	last_batch_size = len(users)%100
+	profiles=[]
+	new=[]
+	for i in range(0,number_batch+1):
+		print("Querying batch n°", i, " on ", number_batch)
+		try :
+			results = twitter.lookup_user(user_id=users[i*100:(i+1)*100])
+			profiles += results
+			new += results
+
+		except Exception as e:
+			if(e.error_code==404):
+				pass;
+			else:
+				print("Too many requests, go sleep for a while")
+				insertUserProfiles(c,conn,new,today,today)
+				new=[]
+				time.sleep(15*60+30)
+				try :
+					results = twitter.lookup_user(user_id=users[i*100:(i+1)*100])
+					profiles += results
+					new+=results
+			
+				except TwythonError:
+					pass;
+
+	insertUserProfiles(c,conn,new,today,today)
 
 def queryUsersProfiles(twitter, input_list_users_ids):
 	
@@ -171,6 +206,45 @@ def queryUsersProfiles(twitter, input_list_users_ids):
 	return new_users;
 
 
+##this below method should be faster than the queryUsersProfilesThatPostedTheTweets + insert profiles action
+def queryAndInsertUsersProfilesThatPostedTheTweets(twitter, c, conn today, input_list_of_queried_tweets):
+	
+	new_users = []
+
+	ids_of_users_that_posted_tweets = [tweet['user']['id_str'] for tweet in input_list_of_queried_tweets]
+	unique_ids = np.unique(ids_of_users_that_posted_tweets)
+	users= [int(i) for i in unique_ids]
+	number_batch = int(len(users)/100)
+	last_batch_size = len(users)%100
+	profiles=[]
+	new=[]
+	for i in range(0,number_batch+1):
+		print("Querying batch n°", i, " on ", number_batch)
+		try :
+			results = twitter.lookup_user(user_id=users[i*100:(i+1)*100])
+			profiles += results
+			new += results
+
+		except Exception as e:
+			if(e.error_code==404):
+				pass;
+			else:
+				print("Too many requests, go sleep for a while")
+				insertUserProfiles(c,conn,new,today,today)
+				new=[]
+				time.sleep(15*60+30)
+				try :
+					results = twitter.lookup_user(user_id=users[i*100:(i+1)*100])
+					profiles += results
+					new+=results
+			
+				except TwythonError:
+					pass;
+
+	insertUserProfiles(c,conn,new,today,today)
+
+
+	
 def queryUsersProfilesThatPostedTheTweets(twitter, input_list_of_queried_tweets):
 	
 	new_users = []
