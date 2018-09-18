@@ -207,7 +207,7 @@ def queryUsersProfiles(twitter, input_list_users_ids):
 
 
 ##this below method should be faster than the queryUsersProfilesThatPostedTheTweets + insert profiles action
-def queryAndInsertUsersProfilesThatPostedTheTweets(twitter, c, conn today, input_list_of_queried_tweets):
+def queryAndInsertUsersProfilesThatPostedTheTweets(twitter, c, conn, today, input_list_of_queried_tweets):
 	
 	new_users = []
 
