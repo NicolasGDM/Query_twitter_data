@@ -59,8 +59,7 @@ latestTweet=-1
 ########## Query a hashtag ##########
 #####################################
 if(mode == 'hashtags'):
-	input_list_of_target_hashtags = target  
-
+	input_list_of_target_hashtags = target 
 	new_tweets = queryTweetsContainingHashtag(twitter, input_list_of_target_hashtags, start_date, end_date, earliestTweet, latestTweet, maxTweets=1000000)
 	print('Done querying tweets')
 	print('Got at most', len(np.unique([i['id'] for i in new_tweets])), ' new tweets')
@@ -69,6 +68,9 @@ if(mode == 'hashtags'):
 	
 	##optional : query user profiles too... takes time
 	# print('Now querying profiles of people that posted the tweets')
+	# queryAndInsertUsersProfilesThatPostedTheTweets(twitter, c, conn today, new_tweets)
+	
+	##few line below do the same but should be slower
 	# new_users = queryUsersProfilesThatPostedTheTweets(twitter, new_tweets)
 	# print('Done querying profiles')
 	# print('Got at most', len(np.unique([i['id'] for i in new_users])), ' new users')
@@ -94,9 +96,13 @@ elif(mode == 'users'):
 	print('Start inserting timelines in database')
 	insertTweets(conn,c, new_tweets)
 
-	new_users = queryUsersProfiles(twitter, target_users)
-	print('Start inserting user profiles in database')
-	insertUserProfiles(c,conn,new_users,today,today)
+	print('Now querying profiles of people')
+	queryAndInsertUsersProfiles(twitter, c, conn, today, target_users)
+
+	##few line below do the same but should be slower
+	# new_users = queryUsersProfiles(twitter, target_users)
+	# print('Start inserting user profiles in database')
+	# insertUserProfiles(c,conn,new_users,today,today)
 
 
 
