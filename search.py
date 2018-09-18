@@ -67,8 +67,8 @@ if(mode == 'hashtags'):
 	insertTweets(conn,c, new_tweets)
 	
 	##optional : query user profiles too... takes time
-	# print('Now querying profiles of people that posted the tweets')
-	# queryAndInsertUsersProfilesThatPostedTheTweets(twitter, c, conn today, new_tweets)
+	print('Now querying profiles of people that posted the tweets')
+	queryAndInsertUsersProfilesThatPostedTheTweets(twitter, c, conn, today, new_tweets)
 	
 	##few line below do the same but should be slower
 	# new_users = queryUsersProfilesThatPostedTheTweets(twitter, new_tweets)
