@@ -79,20 +79,20 @@ if(mode == 'hashtags'):
 ######## Query a user_timeline ##########
 #########################################
 
-elif(mode == 'users'):
+elif(mode == 'users'): ##remember to authentificate as oauth2 for higher API limits
 	new_tweets = []
 	target_users = [int(i) for i in target]
 	print('Start querying timelines')
+	count=0
 	for user in target_users:
-		print('Now querying tweets of user ', user)
-		new_tweets = new_tweets + queryUserTimeline(twitter,user)
-		print('Got ', len(np.unique([i['id'] for i in new_tweets])), ' new tweets from user')
+		count+=1
+		print('Now querying tweets of user ', user, ' number ', count, ' on ', len(target_users))
+		counter= queryAndInsertUsersTimelines(twitter,c,conn,user)
+		print('Got ', counter, ' new tweets from user')
 		print('Done querying user ', user)
 	
 	print('Done querying timelines')
-	print('Start inserting timelines in database')
-	insertTweets(conn,c, new_tweets)
-
+	
 	print('Now querying profiles of people')
 	queryAndInsertUsersProfiles(twitter, c, conn, today, target_users)
 
@@ -102,5 +102,6 @@ elif(mode == 'users'):
 	# insertUserProfiles(c,conn,new_users,today,today)
 
 
-
+elif(mode=='location'):
+	getAndInsertTweetsWithPicsByLocation(twitter,start_date, end_date, earliestTweet, latestTweet, 10000000, conn, c, today)
 
