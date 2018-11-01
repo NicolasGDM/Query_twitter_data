@@ -60,11 +60,8 @@ latestTweet=-1
 #####################################
 if(mode == 'hashtags'):
 	input_list_of_target_hashtags = target 
-	new_tweets = queryTweetsContainingHashtag(twitter, input_list_of_target_hashtags, start_date, end_date, earliestTweet, latestTweet, maxTweets=1000000)
-	print('Done querying tweets')
-	print('Got at most', len(np.unique([i['id'] for i in new_tweets])), ' new tweets')
 	print('Start inserting timelines in database')
-	insertTweets(conn,c, new_tweets)
+	queryAndInsertTweetsContainingHashtag(twitter, input_list_of_target_hashtags, start_date, end_date, earliestTweet, latestTweet, 10000000,conn,c,today)
 	
 	##optional : query user profiles too... takes time
 	print('Now querying profiles of people that posted the tweets')
