@@ -527,22 +527,34 @@ def getTweetsByHashtag(twitter, query, start_date, end_date, earliestTweet, late
 
 def queryUsersProfiles(twitter, input_list_users_ids):
 	
-	new_users = []
-
 	unique_ids = np.unique(input_list_users_ids)
-	for user in unique_ids : 
-		try: 
-			new_user = twitter.show_user(user_id=str(user))
-		except TwythonRateLimitError : 
-			print("Too many requests, go sleep for a while")
-			time.sleep(15*60)
-			try: 
-				new_user = twitter.show_user(user_id=user)
-			except :
-				continue;
-		new_users.append(new_user)
+	count=0
+	users= [int(i) for i in unique_ids]
+	number_batch = int(len(users)/100)
+	last_batch_size = len(users)%100
+	profiles=[]
 
-	return new_users;
+	for i in range(0,number_batch+1):
+		print("Querying batch n ", i, " on ", number_batch)
+		try :
+			results = twitter.lookup_user(user_id=users[i*100:(i+1)*100])
+			profiles += results
+		
+
+		except Exception as e:
+			if(e.error_code==404):
+				pass;
+			else:
+				print("Too many requests, go sleep for a while")
+				time.sleep(15*60)
+				try: 
+					results = twitter.lookup_user(user_id=users[i*100:(i+1)*100])
+					profiles += results
+				except :
+					pass;
+
+
+	return profiles;
 
 
 def queryAndInsertUsersProfilesForTrack(twitter, c, conn, today, input_list_users_ids):
